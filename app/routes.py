@@ -24,6 +24,9 @@ class UserView(ModelView):
     can_edit = True
     column_list = ('firstname', 'lastname')
 
+    column_filters = ('firstname', 'lastname')
+    column_searchable_list = ('firstname', 'lastname')
+
     def __init__(self, session, **kwargs):
         super(UserView, self).__init__(User, session, **kwargs)
 
