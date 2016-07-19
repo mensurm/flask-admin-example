@@ -8,6 +8,17 @@ from flask_admin.contrib.fileadmin import FileAdmin
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
 class UserView(ModelView):
+
+    # For each class it can be defined if view can be accessed.
+    # By default each view is accessible unless the opposite is explicitly set.
+    # If there is a need for custom logic for determining access rights
+    # is_accessible method should be overridden as shown below
+    def is_accessible(self):
+        return True        # most common usage would be  'return user.is_authenticated()'
+
+    # parent class ModelView sets these properties to True by default
+    # setting them to true in UserView can be ommited
+    # it is set here just for illustration purposes
     can_edit = True
     can_delete = True
     can_edit = True
