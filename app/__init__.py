@@ -10,10 +10,6 @@ app.secret_key = u'awp33dac3.asd32axWd2e'
 # for the view bootstrap 2 or 3 can be selected
 admin = Admin(app, name='Flask admin example', template_mode='bootstrap3')
 
-@app.route('/')
-def hello():
-    return 'Home page'
-
 # Close db session after application context shutdown
 @app.teardown_appcontext
 def shutdown_session(exception=None):

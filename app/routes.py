@@ -5,6 +5,15 @@ from app import admin, db_session
 import os.path as op
 from flask_admin.contrib.fileadmin import FileAdmin
 from datetime import datetime
+from flask import redirect
+from app import app
+
+# by default entry point for admin application is /admin
+# adding this redirect shows the admin app as the home page
+@app.route('/', methods=('GET', 'POST'))
+def home_page():
+    return redirect('/admin')
+
 
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
