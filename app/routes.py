@@ -8,6 +8,9 @@ from flask_admin.contrib.fileadmin import FileAdmin
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
 class UserView(ModelView):
+    can_edit = True
+    can_delete = True
+    can_edit = True
     column_list = ('firstname', 'lastname')
 
     def __init__(self, session, **kwargs):
@@ -24,8 +27,9 @@ class StaticView(BaseView):
 # 3. Serving files
 # Exposing folder for add/rename/delete operations on static files
 class FileView(FileAdmin):
-    pass
-
+    can_mkdir = False
+    can_delete = True
+    can_upload = True
 
 #bind UserView object to admin object
 admin.add_view(UserView(db_session))
