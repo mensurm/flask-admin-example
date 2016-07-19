@@ -27,6 +27,9 @@ class UserView(ModelView):
     column_filters = ('firstname', 'lastname')
     column_searchable_list = ('firstname', 'lastname')
 
+    can_export = True
+    can_view_details = True
+
     def __init__(self, session, **kwargs):
         super(UserView, self).__init__(User, session, **kwargs)
 
