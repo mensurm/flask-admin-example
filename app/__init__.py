@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_admin import Admin
-from flask_sqlalchemy import SQLAlchemy
 from database import db_session
 
 app = Flask(__name__)
-db = SQLAlchemy()
 
 # Wrap application
 # name parameter is show on the default navebar
@@ -20,3 +18,4 @@ def hello():
 def shutdown_session(exception=None):
     db_session.remove()
 
+from app import routes
