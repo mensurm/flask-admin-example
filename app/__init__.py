@@ -3,6 +3,7 @@ from flask_admin import Admin
 from database import db_session
 
 app = Flask(__name__)
+app.secret_key = u'awp33dac3.asd32axWd2e'
 
 # Wrap application
 # name parameter is show on the default navebar
