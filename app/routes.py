@@ -4,6 +4,7 @@ from app.models import User
 from app import admin, db_session
 import os.path as op
 from flask_admin.contrib.fileadmin import FileAdmin
+from datetime import datetime
 
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
@@ -16,6 +17,10 @@ class UserView(ModelView):
     def is_accessible(self):
         return True        # most common usage would be  'return user.is_authenticated()'
 
+    def on_model_change(self, form, model, is_created):
+        if is_created:
+            model.created_on = datetime.now()
+
     # parent class ModelView sets these properties to True by default
     # setting them to true in UserView can be ommited
     # it is set here just for illustration purposes
@@ -23,6 +28,7 @@ class UserView(ModelView):
     can_delete = True
     can_edit = True
     column_list = ('firstname', 'lastname')
+    form_excluded_columns = ('created_on')
 
     column_filters = ('firstname', 'lastname')
     column_searchable_list = ('firstname', 'lastname')
