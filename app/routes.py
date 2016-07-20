@@ -64,6 +64,10 @@ class StaticView(ApplicationBaseView, BaseView):
     def static_view(self):
         return self.render('admin/static_template.html')
 
+    @expose('/time', methods=('GET', 'POST'))
+    def show_time(self):
+        return self.render('admin/time.html', time=datetime.now())
+
 # 3. Serving files
 # Exposing folder for add/rename/delete operations on static files
 class FileView(ApplicationBaseView, FileAdmin):
