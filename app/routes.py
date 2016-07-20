@@ -14,17 +14,25 @@ from app import app
 def home_page():
     return redirect('/admin')
 
+# Using a custom base class enables configuration on a application level
+# If the application should be exposed only to authenticated users
+# this would be the place to check user privileges
+class ApplicationBaseView():
+    def is_accessible(self):
+        return True         # sample application has no authentication
+                            # in case the opposite is correct this method could return the following:
+                            # 'return user.is_authenticated()'
 
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
-class UserView(ModelView):
+class UserView(ApplicationBaseView, ModelView):
 
     # For each class it can be defined if view can be accessed.
     # By default each view is accessible unless the opposite is explicitly set.
     # If there is a need for custom logic for determining access rights
     # is_accessible method should be overridden as shown below
     def is_accessible(self):
-        return True        # most common usage would be  'return user.is_authenticated()'
+        return True
 
     def on_model_change(self, form, model, is_created):
         if is_created:
@@ -50,7 +58,7 @@ class UserView(ModelView):
 
 # 2. Static view
 # Inherits BaseView class
-class StaticView(BaseView):
+class StaticView(ApplicationBaseView, BaseView):
 
     @expose('/', methods=('GET', 'POST'))
     def static_view(self):
@@ -58,7 +66,7 @@ class StaticView(BaseView):
 
 # 3. Serving files
 # Exposing folder for add/rename/delete operations on static files
-class FileView(FileAdmin):
+class FileView(ApplicationBaseView, FileAdmin):
     can_mkdir = False
     can_delete = True
     can_upload = True
