@@ -1,5 +1,5 @@
 from flask_admin.contrib.sqla import ModelView
-from flask.ext.admin import expose, BaseView
+from flask.ext.admin import expose, BaseView, AdminIndexView
 from app.models import User
 from app import admin, db_session
 import os.path as op
@@ -22,6 +22,12 @@ class ApplicationBaseView():
         return True         # sample application has no authentication
                             # in case the opposite is correct this method could return the following:
                             # 'return user.is_authenticated()'
+
+class ApplicationIndexView(ApplicationBaseView, AdminIndexView):
+    @expose('/', methods=('GET'))
+    def index_view(self):
+        return self.render('admin/index.html')
+
 
 # 1. View created for CRUD operations on users table
 # Inherits ModelView class
